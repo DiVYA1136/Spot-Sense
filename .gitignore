@@ -8,3 +8,9 @@ spotsense_env/
 venv/
 env/
 
+
+# IDE / Editor settings
+.vscode/
+.idea/
+*.swp
+

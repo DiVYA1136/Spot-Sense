@@ -1,6 +1,12 @@
 import cv2
 import numpy as np
 
-# Initial video capture setup
 cap = cv2.VideoCapture('easy1.mp4')
-print('[INFO] Initializing SpotSense slot annotation tool...')
+drawing = False
+points = []
+
+def draw(event, x, y, flags, param):
+    global points, drawing
+    if event == cv2.EVENT_LBUTTONDOWN:
+        drawing = True
+        points = [(x, y)]

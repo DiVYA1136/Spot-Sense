@@ -10,3 +10,6 @@ def draw(event, x, y, flags, param):
     if event == cv2.EVENT_LBUTTONDOWN:
         drawing = True
         points = [(x, y)]
+    elif event == cv2.EVENT_MOUSEMOVE:
+        if drawing:
+            points.append((x, y))

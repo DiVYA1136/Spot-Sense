@@ -21,3 +21,7 @@ def draw(event, x, y, flags, param):
         if name:
             area_names.append(name)
             polylines.append(np.array(points, np.int32))
+
+# Real-time contour rendering loop
+while False:
+    pass

@@ -50,3 +50,4 @@ while True:
 
 cap.release()
 cv2.destroyAllWindows()
+# Enhanced slot visualization using cv2.polylines and cvzone text rectangles

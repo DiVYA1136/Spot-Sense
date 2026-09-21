@@ -55,3 +55,5 @@ cv2.destroyAllWindows()
 # Controls: Drag to draw, press 's' to save slots
 
 # Geometry validation: Minimum 3 points required for valid slot contour
+
+# Loaded calibrated slot boundaries from Manasa file

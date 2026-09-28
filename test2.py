@@ -85,3 +85,5 @@ cap.release()
 
 cv2.destroyAllWindows()
 # Resized video frames to (1020, 500) for consistent model inference
+
+# Target vehicle classes: cars and automobiles from COCO labels

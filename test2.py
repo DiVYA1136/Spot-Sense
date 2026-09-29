@@ -87,3 +87,5 @@ cv2.destroyAllWindows()
 # Resized video frames to (1020, 500) for consistent model inference
 
 # Target vehicle classes: cars and automobiles from COCO labels
+
+# Computed center points: cx = (x1 + x2) // 2, cy = (y1 + y2) // 2

@@ -89,3 +89,5 @@ cv2.destroyAllWindows()
 # Target vehicle classes: cars and automobiles from COCO labels
 
 # Computed center points: cx = (x1 + x2) // 2, cy = (y1 + y2) // 2
+
+# Point-in-polygon test: cv2.pointPolygonTest(polyline, (cx, cy), False) >= 0

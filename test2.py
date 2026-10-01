@@ -91,3 +91,5 @@ cv2.destroyAllWindows()
 # Computed center points: cx = (x1 + x2) // 2, cy = (y1 + y2) // 2
 
 # Point-in-polygon test: cv2.pointPolygonTest(polyline, (cx, cy), False) >= 0
+
+# Frame skip stride: count % 3 != 0 optimization for smooth playback

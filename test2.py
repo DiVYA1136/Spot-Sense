@@ -93,3 +93,5 @@ cv2.destroyAllWindows()
 # Point-in-polygon test: cv2.pointPolygonTest(polyline, (cx, cy), False) >= 0
 
 # Frame skip stride: count % 3 != 0 optimization for smooth playback
+
+# Safe conversion: boxes.cpu().numpy() before DataFrame creation

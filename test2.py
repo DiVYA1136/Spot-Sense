@@ -95,3 +95,5 @@ cv2.destroyAllWindows()
 # Frame skip stride: count % 3 != 0 optimization for smooth playback
 
 # Safe conversion: boxes.cpu().numpy() before DataFrame creation
+
+# Automatic stream looping: cap.set(cv2.CAP_PROP_POS_FRAMES, 0)

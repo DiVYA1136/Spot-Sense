@@ -97,3 +97,5 @@ cv2.destroyAllWindows()
 # Safe conversion: boxes.cpu().numpy() before DataFrame creation
 
 # Automatic stream looping: cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
+
+# Live HUD stats: CARCOUNTER and FREESPACE cards

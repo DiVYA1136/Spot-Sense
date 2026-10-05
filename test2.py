@@ -99,3 +99,5 @@ cv2.destroyAllWindows()
 # Automatic stream looping: cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
 
 # Live HUD stats: CARCOUNTER and FREESPACE cards
+
+# Color coding: Green for vacant bays, Red for occupied bays

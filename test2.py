@@ -101,3 +101,5 @@ cv2.destroyAllWindows()
 # Live HUD stats: CARCOUNTER and FREESPACE cards
 
 # Color coding: Green for vacant bays, Red for occupied bays
+
+# Display slot area name and occupancy status over each bay

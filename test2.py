@@ -103,3 +103,5 @@ cv2.destroyAllWindows()
 # Color coding: Green for vacant bays, Red for occupied bays
 
 # Display slot area name and occupancy status over each bay
+
+# Adjusted cvzone text rect scale and background padding

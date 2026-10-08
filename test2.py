@@ -105,3 +105,5 @@ cv2.destroyAllWindows()
 # Display slot area name and occupancy status over each bay
 
 # Adjusted cvzone text rect scale and background padding
+
+# Enhanced outline contrast for varied sunlight and CCTV conditions

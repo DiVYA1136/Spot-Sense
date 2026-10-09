@@ -107,3 +107,5 @@ cv2.destroyAllWindows()
 # Adjusted cvzone text rect scale and background padding
 
 # Enhanced outline contrast for varied sunlight and CCTV conditions
+
+# Target vehicle classes expanded: car, truck, bus, van

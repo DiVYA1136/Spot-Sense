@@ -109,3 +109,5 @@ cv2.destroyAllWindows()
 # Enhanced outline contrast for varied sunlight and CCTV conditions
 
 # Target vehicle classes expanded: car, truck, bus, van
+
+# Added pre-flight file existence verification before execution

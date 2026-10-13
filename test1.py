@@ -140,3 +140,4 @@ while True:
 
 cap.release()
 cv2.destroyAllWindows()
+# Supports slot undo operations via 'u' and 'z' hotkeys

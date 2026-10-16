@@ -145,3 +145,5 @@ cv2.destroyAllWindows()
 # Supports clearing all bays via 'c' hotkey
 
 # Interactive command line guide printed on startup
+
+# Window destruction handled cleanly on 'q' and ESC

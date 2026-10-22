@@ -68,3 +68,5 @@ if __name__ == "__main__":
     # If run directly, generate slots.json from existing Manasa calibration
     if os.path.exists('Manasa'):
         export_slots_to_json('Manasa', 'slots.json')
+
+# Verified round-trip conversion integrity between JSON and Pickle

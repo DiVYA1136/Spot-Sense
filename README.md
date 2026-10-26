@@ -1,66 +1,52 @@
-# 🚗 SpotSense: AI-Powered Smart Parking System
+# 🚗 SpotSense: AI-Powered Smart Parking Slot Detection System
 
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![YOLOv8](https://img.shields.io/badge/YOLOv8-Ultralytics-00FFFF.svg?style=for-the-badge&logo=yolo&logoColor=black)](https://github.com/ultralytics/ultralytics)
 [![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-green.svg?style=for-the-badge&logo=opencv&logoColor=white)](https://opencv.org/)
-[![AI & ML](https://img.shields.io/badge/AI%20%26%20ML-Deep%20Learning-orange.svg?style=for-the-badge&logo=brain-circuit&logoColor=white)]()
-[![Status](https://img.shields.io/badge/Status-Active%20Development-brightgreen.svg?style=for-the-badge)]()
+[![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen.svg?style=for-the-badge)]()
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
-> **SpotSense** is an intelligent, AI-driven smart parking slot detection and management platform. By analyzing live camera feeds and CCTV footage using Computer Vision and Deep Learning, SpotSense identifies real-time parking space availability, reduces traffic congestion, and delivers data-driven analytics for parking administrators.
+> **SpotSense** is an AI-driven smart parking occupancy detection and management solution. By combining **YOLOv8 deep learning vehicle detection** with **polygonal Region-of-Interest (ROI) geometric collision testing**, SpotSense delivers accurate, real-time parking space availability metrics without requiring expensive IoT ground sensors.
 
 ---
 
 ## 📌 Table of Contents
 
 - [Overview](#-overview)
-- [Problem Statement](#-problem-statement)
-- [Proposed Solution](#-proposed-solution)
 - [Key Features](#-key-features)
 - [System Architecture](#-system-architecture)
+- [Project Structure](#-project-structure)
+- [Prerequisites & Installation](#-prerequisites--installation)
+- [Quick Start Guide](#-quick-start-guide)
+  - [1. Marking Custom Parking Bays](#1-marking-custom-parking-bays-test1py)
+  - [2. Running Real-Time Occupancy Detection](#2-running-real-time-occupancy-detection-test2py--mainpy)
+- [Interactive Controls Cheat Sheet](#-interactive-controls-cheat-sheet)
+- [Detection Pipeline Details](#-detection-pipeline-details)
 - [Technology Stack](#-technology-stack)
-- [Deployment & Target Environments](#-deployment--target-environments)
-- [Getting Started](#-getting-started)
-- [Future Enhancements](#-future-enhancements)
-- [Keywords](#-keywords)
+- [Roadmap & Future Enhancements](#-roadmap--future-enhancements)
+- [License](#-license)
 
 ---
 
 ## 📖 Overview
 
-In rapidly growing urban spaces, finding an open parking slot is often frustrating, inefficient, and time-consuming. **SpotSense** solves this challenge by leveraging **Computer Vision and Artificial Intelligence** to monitor parking lots automatically.
+Traditional parking infrastructure struggles with inefficiency, manual monitoring delays, and traffic congestion. Ground-embedded magnetic sensors are expensive to install, easily damaged, and difficult to maintain.
 
-Instead of relying on costly physical ground sensors for every individual parking bay, SpotSense uses optical camera feeds to continuously detect whether predefined parking slots are **Vacant 🟩** or **Occupied 🟥**. The processed data is updated live on an intuitive interface accessible by drivers and parking operators.
-
----
-
-## 🚨 Problem Statement
-
-Traditional parking systems rely heavily on manual attendants or basic entry/exit gate barriers, which fail to pinpoint specific vacant parking slots inside a lot.
-
-* **For Drivers**: High fuel consumption, wasted time, increased urban traffic congestion, and driver stress while searching for parking.
-* **For Administrators**: Lack of visibility into real-time space utilization, inefficient space allocation, and absent analytics for long-term planning.
-
----
-
-## 💡 Proposed Solution
-
-SpotSense addresses these pain points by offering an end-to-end automated parking monitoring pipeline:
-
-1. **Video Ingestion**: Captures video stream from overhead cameras or CCTV feeds.
-2. **AI Inference**: Runs object detection and spatial mask overlays to classify slots as vacant or occupied.
-3. **Real-Time Sync**: Updates backend databases with instantaneous slot status updates.
-4. **Interactive Dashboard**: Displays live occupancy maps, availability counts, and historical usage trends.
+**SpotSense** provides an optical, camera-based solution that:
+1. Employs **YOLOv8s** to accurately localize vehicles (cars, buses, trucks, vans) in CCTV camera video streams.
+2. Performs real-time **point-in-polygon collision testing** (`cv2.pointPolygonTest`) to evaluate occupancy against pre-calibrated parking bays.
+3. Overlays dynamic, color-coded visual feedback (**🟩 Free / 🟥 Occupied**) and a live HUD counter of available spaces.
 
 ---
 
 ## ✨ Key Features
 
-- 📹 **Real-Time Slot Occupancy Detection**: Computer Vision models analyze live video streams to instantly detect vehicle presence.
-- 🎯 **Visual Bounding & Mask Overlays**: Predefined slot bounding boxes highlight vacant (green) and occupied (red) spaces clearly.
-- 📊 **Centralized Digital Dashboard**: Live monitoring for security personnel, parking administrators, and drivers.
-- ☁️ **Cloud Data Management**: Secure backend services to store historical occupancy statistics and logs.
-- 📈 **Predictive Parking Analytics**: Analyzes historical peak hours and usage metrics to forecast future parking demand.
-- 🚨 **Security & Unauthorized Vehicle Detection**: Capability to identify improper parking or unauthorized space usage and trigger alerts.
-- 🌐 **Scalable Architecture**: Flexible design supporting multiple camera feeds across multi-level parking lots.
+- 🎯 **Deep Learning Vehicle Detection**: Powered by YOLOv8 for robust vehicle detection under varying lighting and camera angles.
+- 📐 **Polygonal Slot Definition**: Define parking bays of any geometric shape (perspective-skewed angles, trapezoids, or standard rectangles) via mouse dragging.
+- ⚡ **Optimized Video Inference**: Implements frame stride optimization (process every 3rd frame) for ultra-fast, smooth real-time performance.
+- 📊 **Dynamic HUD Dashboard Overlay**: Displays instantaneous `AVAILABLE` and `OCCUPIED` bay counts directly onto the video stream.
+- 💾 **Persistent Configuration**: Serializes slot boundary polygons with pickle to easily load and adjust bays without re-calibration.
+- 🎮 **Unified Application CLI**: Single entrypoint `main.py` allowing instant switching between slot calibration and real-time detection modes.
 
 ---
 
@@ -68,89 +54,147 @@ SpotSense addresses these pain points by offering an end-to-end automated parkin
 
 ```mermaid
 graph TD
-    A["📹 Camera / CCTV Stream"] --> B["🧠 AI & Computer Vision Processing"]
-    B --> C["🟩/🟥 Slot Occupancy Detection Engine"]
-    C --> D["⚡ Backend API & Database Service"]
-    D --> E["🖥️ Real-Time Monitoring Dashboard"]
-    D --> F["📊 Analytics & Demand Forecasting"]
-    D --> G["🚨 Unauthorized Parking Alert System"]
+    A["📹 Video Stream / CCTV Feed (easy1.mp4)"] --> B["⚡ Video Preprocessing & Resize (1020x500)"]
+    B --> C["🧠 YOLOv8s Vehicle Detection (Cars, Trucks, Buses)"]
+    C --> D["📍 Compute Vehicle Center Coordinates (cx, cy)"]
+    E["📁 Saved Slot Polylines (Manasa)"] --> F["📐 Point-in-Polygon Collision Test (cv2.pointPolygonTest)"]
+    D --> F
+    F --> G{"Is Vehicle Inside Slot?"}
+    G -- Yes --> H["🟥 Mark Slot as Occupied"]
+    G -- No --> I["🟩 Mark Slot as Free"]
+    H --> J["🖥️ Render HUD Overlays & Occupancy Stats"]
+    I --> J
 ```
+
+---
+
+## 📂 Project Structure
+
+```bash
+Spot-Sense/
+├── coco.txt          # COCO dataset class labels mapping
+├── easy1.mp4         # Sample parking surveillance video footage
+├── LICENSE           # MIT open source license
+├── main.py           # Unified application CLI entrypoint
+├── Manasa            # Calibrated parking slot polygons & bay names (Pickle)
+├── requirements.txt  # Python package dependencies
+├── slots.json        # Exported JSON parking slot boundaries & polygons
+├── test1.py          # Interactive slot drawing & annotation tool
+├── test2.py          # Real-time YOLOv8 parking slot occupancy tracker
+├── utils.py          # Format converters (JSON <-> Pickle) & helper utilities
+├── yolov8s.pt        # Pre-trained YOLOv8 small model weights
+└── README.md         # Project documentation & usage manual
+```
+
+---
+
+## 💻 Prerequisites & Installation
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/DiVYA1136/Spot-Sense.git
+cd Spot-Sense
+```
+
+### 2. Set Up a Virtual Environment (Recommended)
+```bash
+python -m venv venv
+
+# On Windows:
+venv\Scripts\activate
+
+# On Linux/macOS:
+source venv/bin/activate
+```
+
+### 3. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 🚀 Quick Start Guide
+
+### 1. Marking Custom Parking Bays (`test1.py`)
+If you are deploying on new camera footage or want to customize slot locations:
+```bash
+python main.py --annotate
+# or directly:
+python test1.py
+```
+- **How to use:**
+  1. Click and hold the **Left Mouse Button** to trace around a parking bay.
+  2. Release the mouse button.
+  3. Enter the slot name (e.g., `1`, `A-12`, `VIP`) in the console prompt.
+  4. Press `s` on the video window to save the slot configurations to `Manasa`.
+
+---
+
+### 2. Running Real-Time Occupancy Detection (`test2.py` / `main.py`)
+Run the live detection engine:
+```bash
+python main.py
+# or with flag:
+python main.py --detect
+# or directly:
+python test2.py
+```
+
+The system will:
+- Load the YOLOv8 model weights (`yolov8s.pt`).
+- Read the calibrated parking spots from `Manasa`.
+- Monitor `easy1.mp4` and display:
+  - **🟩 Green Bay**: Free / Available Space.
+  - **🟥 Red Bay**: Occupied Space.
+  - **Top-left HUD**: Live `OCCUPIED: X/Total` and `AVAILABLE: Y` counters.
+
+---
+
+## 🎮 Interactive Controls Cheat Sheet
+
+| Key / Action | Mode | Description |
+| :--- | :--- | :--- |
+| **Left Click + Drag** | Annotator (`test1.py`) | Draw polygon vertices around a parking slot |
+| **Release Mouse** | Annotator (`test1.py`) | Confirm slot shape and input slot label in terminal |
+| **`s`** | Annotator (`test1.py`) | Save slot coordinates to configuration file |
+| **`u` / `z`** | Annotator (`test1.py`) | Undo / remove the most recently added slot |
+| **`c`** | Annotator (`test1.py`) | Clear all defined parking slots |
+| **`q` / `ESC`** | Annotator & Tracker | Safely exit and close OpenCV windows |
+
+---
+
+## 🔬 Detection Pipeline Details
+
+1. **Object Detection**: YOLOv8s processes video frames and generates bounding boxes `[x1, y1, x2, y2]` along with class indices.
+2. **Class Filtering**: Only vehicle classes (`car`, `truck`, `bus`, `van`) from `coco.txt` are retained.
+3. **Centroid Extraction**: Computes vehicle center point:
+   $$\text{cx} = \frac{x_1 + x_2}{2}, \quad \text{cy} = \frac{y_1 + y_2}{2}$$
+4. **Spatial Ingestion**: Tests if centroid $(cx, cy)$ falls inside polygon contour $P_i$ using Ray Casting / Point-in-Polygon test:
+   $$\text{pointPolygonTest}(P_i, (cx, cy), \text{measureDist}=\text{False}) \ge 0$$
+5. **Frame Stride Acceleration**: Video frames are sampled every 3 frames to maintain high framerate playback even on CPU environments.
 
 ---
 
 ## 🛠️ Technology Stack
 
-| Domain | Technologies & Libraries |
-| :--- | :--- |
-| **Artificial Intelligence & CV** | Python, OpenCV, Object Detection (YOLO / CNN), Image Processing |
-| **Backend Services** | Python (FastAPI / Flask) / Node.js, RESTful APIs |
-| **Database & Cloud** | Firebase / PostgreSQL / MongoDB |
-| **Frontend & Visualization** | Web Interface (HTML5, CSS3, JavaScript / React) |
-| **Data Analytics** | Pandas, NumPy, Matplotlib / Chart.js |
+- **Computer Vision**: [OpenCV](https://opencv.org/) (`opencv-python`)
+- **Deep Learning**: [Ultralytics YOLOv8](https://github.com/ultralytics/ultralytics) (`yolov8s.pt`)
+- **UI & HUD Annotations**: [cvzone](https://github.com/cvzone/cvzone)
+- **Data & Geometry Processing**: [NumPy](https://numpy.org/), [Pandas](https://pandas.pydata.org/)
+- **Serialization**: Python `pickle`
 
 ---
 
-## 🏬 Deployment & Target Environments
+## 🔮 Roadmap & Future Enhancements
 
-SpotSense is adaptable for various high-density commercial and public parking facilities:
-- 🏢 **Corporate & Tech Parks**
-- 🛍️ **Shopping Malls & Retail Centers**
-- 🎓 **University & School Campuses**
-- 🏥 **Hospitals & Medical Centers**
-- ✈️ **Airports, Railway Stations & Transit Hubs**
-- 🏙️ **Smart City Municipal Parking Lots**
+- [ ] Automatic License Plate Recognition (ANPR) integration for automated billing.
+- [ ] Mobile Application integration (React Native / Flutter) for driver reservation.
+- [ ] Cloud telemetry sync (Firebase / AWS IoT) for multi-level parking telemetry.
+- [ ] Support for live RTSP / IP camera video streams.
 
 ---
 
-## 🚀 Getting Started
+## 📄 License
 
-### Prerequisites
-
-- Python 3.9+
-- Git
-- OpenCV & Deep Learning Dependencies
-
-### Installation
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/DiVYA1136/Spot-Sense.git
-   cd Spot-Sense
-   ```
-
-2. **Set up a virtual environment**:
-   ```bash
-   python -m venv venv
-   # On Windows:
-   venv\Scripts\activate
-   # On macOS/Linux:
-   source venv/bin/activate
-   ```
-
-3. **Install dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Run the application**:
-   ```bash
-   python main.py
-   ```
-
----
-
-## 🔮 Future Enhancements
-
-- 📱 **Mobile App Integration**: Mobile application for drivers to reserve or locate open slots prior to arrival.
-- 🏷️ **ANPR (Automatic Number Plate Recognition)**: Automated vehicle registration tracking upon entering/exiting.
-- ⚡ **EV Charging Slot Monitoring**: Dedicated status tracking for Electric Vehicle charging bays.
-
----
-
-## 🏷️ Keywords
-
-`Artificial Intelligence` • `Computer Vision` • `Smart Parking` • `Object Detection` • `OpenCV` • `Real-Time Monitoring` • `Cloud Computing` • `Parking Analytics` • `Smart City`
-
----
-
-<p center>Maintained by <a href="https://github.com/DiVYA1136">DiVYA1136</a></p>
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.

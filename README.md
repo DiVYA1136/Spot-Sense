@@ -198,4 +198,3 @@ The system will:
 ## 📄 License
 
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
-<!-- Verified production deployment on October 27, 2026 -->

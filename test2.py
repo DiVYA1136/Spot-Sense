@@ -168,4 +168,3 @@ while True:
 
 cap.release()
 cv2.destroyAllWindows()
-# Video capture released and windows destroyed on exit
